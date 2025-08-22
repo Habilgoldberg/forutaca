@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Kamu, Anatasia ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffebf3 0%, #ffe6ee 50%, #ffd6e0 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>❤️</text></svg>") 16 0, auto;
+        }
+        
+        .dancing-script {
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, rgba(255,182,193,0.8) 0%, rgba(255,105,180,0.8) 100%);
+            backdrop-filter: blur(10px);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            animation: float 6s infinite;
+            opacity: 0;
+            color: #ff4081;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+        
+        .memory-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px;
+            box-shadow: 0 10px 30px rgba(255,105,180,0.2);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+        
+        .memory-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255,105,180,0.3);
+            border: 3px solid #ff69b4;
+        }
+        
+        .memory-card::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #ff69b4, #ff1493, #ff69b4);
+            border-radius: 23px;
+            z-index: -1;
+            animation: borderAnimation 3s infinite linear;
+        }
+        
+        @keyframes borderAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .photo-frame {
+            border: 8px solid white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .photo-frame:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+        
+        .love-letter {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,240,245,0.9) 100%);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,182,193,0.5);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(255,105,180,0.1);
+        }
+        
+        .countdown {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(255,105,180,0.2);
+        }
+        
+        .countdown-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ff4081;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .secret-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255,64,129,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .secret-message:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 6px 20px rgba(255,64,129,0.4);
+        }
+        
+        .message-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .message-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .message-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+        
+        .message-modal.active .message-content {
+            transform: scale(1);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #ff4081;
+        }
+        
+        .music-player {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .music-player:hover {
+            transform: scale(1.1);
+            background: #ff4081;
+            color: white;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid #ff4081;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #ff4081; }
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff4081;
+            animation: confetti-fall 5s linear infinite;
+            z-index: 1000;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Music Player -->
+    <div class="music-player" id="musicToggle">
+        <i class="fas fa-music"></i>
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/01/20/audio_dc43ffd642.mp3?filename=soft-sweet-romantic-background-music-6441.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Secret Message Button -->
+    <button class="secret-message" id="secretBtn">
+        <i class="fas fa-heart"></i>
+    </button>
+
+    <!-- Secret Message Modal -->
+    <div class="message-modal" id="messageModal">
+        <div class="message-content">
+            <button class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="text-2xl text-pink-600 mb-4 dancing-script">buat kamu anatasia ❤️</h3>
+            <p class="text-gray-700 mb-4">
+                Setiap detik sama kamu itu indah banget, aku mau setiap hari sama kamu
+            </p>
+            <p class="text-pink-500 italic">
+                i love u moree
+            </p>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="floating-hearts" id="heartsContainer"></div>
+        
+        <div class="text-white text-center z-10">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 dancing-script typewriter">
+                anatasia anjali aprilia
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">
+                wanita cantik indah nan sederhana
+            </p>
+            <button class="bg-white text-pink-600 px-8 py-3 rounded-full font-semibold text-lg hover:bg-pink-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                    onclick="scrollToMemories()">
+                see about you
+            </button>
+        </div>
+        
+        <div class="absolute bottom-10 animate-bounce">
+            <i class="fas fa-chevron-down text-white text-3xl"></i>
+        </div>
+    </section>
+
+    <!-- Memories Section -->
+    <section class="py-20 px-6" id="memories">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-pink-600 mb-16 dancing-script">
+                hai, aku anatasia anjali aprilia
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Memory 1 -->
+                <div class="memory-card">
+                    <h3 class="text-2xl font-semibold text-pink-700 mb-4 dancing-script text-center">
+                        nah ini dia!!!
+                    </h3>
+                    <div class="photo-frame mx-auto mb-4">
+                        <img src="taca.jpg"
+                             alt="Momen pertama kita bertemu dengan senyuman dan mata berbinar" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.style.display='none'">
+                    </div>
+                    <p class="text-gray-700 text-center">
+                        gimana cantik nan indah ya?
+                    </p>
+                    <div class="text-center mt-4">
+                        <span class="text-pink-500">❤️</span>
+                    </div>
+                </div>
+
+                <!-- Memory 2 -->
+                <div class="memory-card">
+                    <h3 class="text-2xl font-semibold text-pink-700 mb-4 dancing-script text-center">
+                        dariku, untukmu
+                    </h3>
+                    <div class="photo-frame mx-auto mb-4">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d221440b-556a-416c-81b8-87b5fd79ba44.png" 
+                             alt="Kencan romantis pertama kita di tempat yang特别" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.style.display='none'">
+                    </div>
+                    <p class="text-gray-700 text-center">
+                        jujur aku gabisa kata kata kayak orng lain, but lets'see, pertama kenal kamu tanpa melihat fisik aku sudah merasakan, dengan cara kamu ngomong, kepribadian kamu, cara kamu nanggepin sesuatu, aku suka semua, sifat kamu bahkan kekurangan kamu, aku sangat bersyukur bisa ketemu orang se indah kamu, aku berharap kita bisa jalanin semua bareng bareng, aku harap kita bisa seterusnya bersama. i love u more than u know❤️❤️❤️
+                    </p>
+                    <div class="text-center mt-4">
+                        <span class="text-pink-500">💝 23 agustus 2025</span>
+                    </div>
+                </div>
+
+                <!-- Memory 3 -->
+                <div class="memory-card">
+                    <h3 class="text-2xl font-semibold text-pink-700 mb-4 dancing-script text-center">
+                        long teks niii
+                    </h3>
+                    <div class="photo-frame mx-auto mb-4">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8d1b16a3-2d75-44d5-8018-c80d3018a215.png" 
+                             alt="Pelukan hangat pertama yang tak terlupakan" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.style.display='none'">
+                    </div>
+                    <p class="text-gray-700 text-center">
+                        sejak ketemu denganmu, aku baru tau bagaimana rasanya dirayakan oleh seseorang. tidak lebih ataupun kurang, caramu mencintaiku selalu berhasil membuat ku merasa begitu sangat disayang. mungkin kalimat terimakasih saja belum cukup untuk menjelaskan betapa beruntungnya aku memilikimu dalam hidupku. aku bukan hanya diterima apa adanya, tapi juga diperlakukan sebaik baiknya. aku tau kalo tulisan ini tidak akan pernah sanggup menjelaskan betapa aku mencintaimu.bahkan ketika aku hidup sekali lagi, aku akan tetap memilihmu sebagai seseorang yang aku cintai. kamu terlalu istimewa untuk sekedar disebut manusia biasa, lalu bagaimana mungkin aku bisa tidak jatuh cinta? Kamu punya daya tarik yang memikat, kamu adalah definisi dari kecukupan yang aku maksudkan, kamu bukan hanya sekedar seseorang yang aku inginkan, tapi juga menjadi seseorang yang aku butuhkan, terimakasih sudah menyiapkan sepasang telingamu untuk mendengarkan seluruh keluh kesahku, terimakasih sudah menjadi tujuan ketika aku hampir lupa jalan pulang, terimakasih sudah menjadi bintang di langitku yang penuh kegelapan, sejak ketemu denganmu, aku jadi banyak belajar bagaimana caranya berdamai dengan kegelapan di masalalu. aku jadi percaya bahwa sesuatu yang hilang akan digantikan dengan sesuatu yang jauh lebih baik lagi. jadi, terima sudah hadir di hidupku sampai detik ini, aku  sayang kamu selamanya
+                    </p>
+                    <div class="text-center mt-4">
+                        <span class="text-pink-500">LOVE UU MOREE💕❤️</span>
+                    </div>
+                </div>
+
+                <!-- Memory 4 -->
+                <div class="memory-card">
+                    <h3 class="text-2xl font-semibold text-pink-700 mb-4 dancing-script text-center">
+                        KAMUUUU!!!!
+                    </h3>
+                    <div class="photo-frame mx-auto mb-4">
+                        <img src="mam.jpg" 
+                             alt="Petualangan dan liburan indah bersama" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.style.display='none'">
+                    </div>
+                    <p class="text-gray-700 text-center">
+                        kalo ada orang yang nyebut mereka tuh aku otomatis berfikir sama kamu, ketika ada orang yang sebut dimsum mentai aku langsung keingett kamu, karena kamu sangat cinta sama dimsum mentai, kalo aku eli minuman terus ada matcha aku langsung berfikir "eh iya ya pacarku suka matcha", aku melihat kucing dimana pun teringat sangat bahwa kamu sukakucing dan punya bolu, tapi dia tidak tau dmn ya?...., sering berdebat sama aku, enak mie ayam lah, kamu dengan tegas, "GAK ENAK MIE BASO", maknya aku suka ngebaso biar selalu ingat kamuuuuu, kadang suka mager harus ngapain yauda aku main emel deh, eh ada musuh pake angela, aku teringat angela yang sangat jago pacar aku, aku sangat mengingat apa yang kamu suka agar aku selalu ingat pacar aku yang imuppppppp ini.😽🥗🥗🧋
+                    </p>
+                    <div class="text-center mt-4">
+                        <span class="text-pink-500">😍😍😍😍</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Love Letter Section -->
+    <section class="py-20 px-6 bg-pink-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-pink-600 mb-16 dancing-script">
+                Surat Cinta Untukmu
+            </h2>
+            
+            <div class="love-letter">
+                <div class="text-center mb-6">
+                    <span class="text-6xl dancing-script text-pink-500">"</span>
+                </div>
+                
+                <p class="text-lg text-gray-700 mb-4 text-center leading-relaxed">
+                    Sayangku yang tercinta,
+                </p>
+                
+                <p class="text-lg text-gray-700 mb-4 text-center leading-relaxed">
+                    Setiap pagi ketika aku terbangun, hal pertama yang terpikir adalah senyumanmu. 
+                    Setiap malam sebelum tidur, doaku adalah kebahagiaanmu.
+                </p>
+                
+                <p class="text-lg text-gray-700 mb-4 text-center leading-relaxed">
+                    Kamu mengajarkanku arti cinta yang sesungguhnya - sabar, setia, dan tanpa syarat. 
+                    Setiap detik bersamamu adalah hadiah terindah yang tidak akan pernah bisa aku balas.
+                </p>
+                
+                <p class="text-lg text-gray-700 mb-4 text-center leading-relaxed">
+                    Terima kasih sudah menjadi cahaya dalam hidupku, sudah menjadi rumah bagi hatiku, 
+                    sudah menjadi segala yang tidak pernah tahu butuhkan.
+                </p>
+                
+                <p class="text-lg text-pink-600 font-semibold text-center leading-relaxed dancing-script">
+                    Selamanya milikmu...
+                </p>
+                
+                <div class="text-center mt-8">
+                    <span class="text-6xl dancing-script text-pink-500">"</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section class="py-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-pink-600 mb-16 dancing-script">
+                Ini umur kamu sayanggg
+            </h2>
+            
+            <div class="countdown">
+                <h3 class="text-2xl text-pink-700 mb-8">April 04 2005</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div>
+                        <div class="countdown-number" id="years">0</div>
+                        <div class="text-gray-600">Tahun</div>
+                    </div>
+                    <div>
+                        <div class="countdown-number" id="months">0</div>
+                        <div class="text-gray-600">Bulan</div>
+                    </div>
+                    <div>
+                        <div class="countdown-number" id="days">0</div>
+                        <div class="text-gray-600">Hari</div>
+                    </div>
+                    <div>
+                        <div class="countdown-number" id="hours">0</div>
+                        <div class="text-gray-600">Jam</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Message -->
+    <section class="py-20 px-6 bg-gradient-to-r from-pink-400 to-red-400 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8 dancing-script">
+                Terima Kasih Sudah Menjadi Bagian dari Hidup Aku
+            </h2>
+            <p class="text-xl mb-8 opacity-90">
+                Aku bersyukur setiap hari bisa ketemu orang se indah kamu
+            </p>
+            <div class="text-4xl mb-8">
+                ❤️ 💝 🎀 🌸 ✨
+            </div>
+            <button class="bg-white text-pink-600 px-8 py-3 rounded-full font-semibold text-lg hover:bg-pink-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                    onclick="createConfetti()">
+                Klik untuk Cinta!
+            </button>
+        </div>
+    </section>
+
+    <script>
+        // Music control
+        const musicToggle = document.getElementById('musicToggle');
+        const bgMusic = document.getElementById('bgMusic');
+        let musicPlaying = false;
+
+        musicToggle.addEventListener('click', () => {
+            if (musicPlaying) {
+                bgMusic.pause();
+                musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+            } else {
+                bgMusic.play().catch(e => {
+                    console.log('Autoplay prevented: ', e);
+                });
+                musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+            musicPlaying = !musicPlaying;
+        });
+
+        // Secret message modal
+        const secretBtn = document.getElementById('secretBtn');
+        const messageModal = document.getElementById('messageModal');
+        const closeModal = document.getElementById('closeModal');
+
+        secretBtn.addEventListener('click', () => {
+            messageModal.classList.add('active');
+        });
+
+        closeModal.addEventListener('click', () => {
+            messageModal.classList.remove('active');
+        });
+
+        // Floating hearts
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Countdown timer (assuming relationship started on Jan 23, 2023)
+        function updateCountdown() {
+            const startDate = new Date('2005-04-05');
+            const now = new Date();
+            
+            let years = now.getFullYear() - startDate.getFullYear();
+            let months = now.getMonth() - startDate.getMonth();
+            let days = now.getDate() - startDate.getDate();
+            let hours = now.getHours();
+            
+            if (days < 0) {
+                months--;
+                days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+            }
+            
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            document.getElementById('years').textContent = years;
+            document.getElementById('months').textContent = months;
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+        }
+
+        // Scroll to memories
+        function scrollToMemories() {
+            document.getElementById('memories').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Confetti effect
+        function createConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.background = ['#ff4081', '#ff69b4', '#ff1493', '#ff85c0'][Math.floor(Math.random() * 4)];
+                confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            updateCountdown();
+            setInterval(updateCountdown, 3600000); // Update every hour
+            
+            // Try to auto-play music with user interaction
+            document.body.addEventListener('click', function initMusic() {
+                bgMusic.play().catch(e => {
+                    console.log('Autoplay prevented, waiting for user interaction');
+                });
+                document.body.removeEventListener('click', initMusic);
+            }, { once: true });
+        });
+    </script>
+</body>
+</html>
